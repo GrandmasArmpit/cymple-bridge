@@ -24,6 +24,12 @@ Grab `CympleBridgeSetup.exe`, run it, done. Self-contained: no .NET install requ
 
 ![Installer](docs/setup.png)
 
+In context — Cymple eye cameras and the mouth tracker running alongside Cymple Bridge:
+
+![Full desktop, camera setup](docs/context-cameras.png)
+
+![Full desktop, bridge live](docs/context-bridge-live.png)
+
 ## Features
 
 - Paste the tracker's MJPEG URL and flip one relay switch.

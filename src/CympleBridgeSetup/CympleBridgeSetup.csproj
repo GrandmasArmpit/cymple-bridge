@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>CympleBridgeSetup</AssemblyName>
+    <RootNamespace>CympleBridgeSetup</RootNamespace>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+    <Product>Cymple Bridge Setup</Product>
+    <Company>Cymple Bridge</Company>
+    <SelfContained>false</SelfContained>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- App payload. Prefer the compressed build produced by scripts/build-release.ps1. -->
+    <EmbeddedResource Include="payload\CympleBridge.exe.gz" Condition="Exists('payload\CympleBridge.exe.gz')" />
+    <EmbeddedResource Include="payload\CympleBridge.exe" Condition="!Exists('payload\CympleBridge.exe.gz') And Exists('payload\CympleBridge.exe')" />
+    <None Remove="app.ico" />
+    <Resource Include="app.ico" />
+  </ItemGroup>
+
+</Project>

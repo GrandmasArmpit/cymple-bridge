@@ -1,0 +1,220 @@
+<Window x:Class="CympleBridgeSetup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Cymple Bridge Setup"
+        Width="660"
+        Height="486"
+        Background="{StaticResource B.Bg0}"
+        FontFamily="{StaticResource F.Display}"
+        ResizeMode="NoResize"
+        TextOptions.TextFormattingMode="Ideal"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="44"
+                            CornerRadius="0"
+                            GlassFrameThickness="0"
+                            ResizeBorderThickness="0"
+                            UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <Style x:Key="Check" TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource B.TextDim}" />
+            <Setter Property="FontFamily" Value="{StaticResource F.Mono}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Border x:Name="Box"
+                                    Width="18"
+                                    Height="18"
+                                    VerticalAlignment="Center"
+                                    Background="{StaticResource B.Bg0}"
+                                    BorderBrush="{StaticResource B.LineHi}"
+                                    BorderThickness="1"
+                                    CornerRadius="3">
+                                <TextBlock x:Name="Tick"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="12"
+                                           Foreground="{StaticResource B.Green}"
+                                           Text="✓"
+                                           Visibility="Collapsed" />
+                            </Border>
+                            <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{StaticResource B.Green}" />
+                                <Setter TargetName="Tick" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="{StaticResource B.Line}" BorderThickness="1">
+        <Grid ClipToBounds="True">
+            <Rectangle Fill="{StaticResource GridBrush}" />
+            <Ellipse Width="700"
+                     Height="700"
+                     Margin="-300,-360,0,0"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     IsHitTestVisible="False">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Offset="0" Color="#265AF2A6" />
+                        <GradientStop Offset="1" Color="#005AF2A6" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <DockPanel>
+                <Grid Height="44" DockPanel.Dock="Top">
+                    <StackPanel Margin="18,0,0,0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="11" Height="11" Background="{StaticResource B.Green}" CornerRadius="2">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="14" Color="{StaticResource C.Green}" ShadowDepth="0" />
+                            </Border.Effect>
+                        </Border>
+                        <TextBlock Margin="11,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="13"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource B.TextDim}"
+                                   Text="CYMPLE BRIDGE SETUP" />
+                    </StackPanel>
+                    <Button Click="OnClose"
+                            Content="✕"
+                            HorizontalAlignment="Right"
+                            Style="{StaticResource Chrome}"
+                            shell:WindowChrome.IsHitTestVisibleInChrome="True" />
+                </Grid>
+
+                <Grid Margin="26,4,26,22">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  header  -->
+                    <Grid Grid.Row="0" Margin="0,2,0,22">
+                        <StackPanel>
+                            <TextBlock FontFamily="{StaticResource F.Mono}"
+                                       FontSize="12"
+                                       Foreground="{StaticResource B.TextFaint}"
+                                       Text="INSTALLER" />
+                            <TextBlock Margin="0,2,0,0"
+                                       FontSize="36"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource B.Text}"
+                                       Text="CYMPLE BRIDGE" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
+                            <Ellipse x:Name="StateLed"
+                                     Width="12"
+                                     Height="12"
+                                     VerticalAlignment="Center"
+                                     Fill="{StaticResource B.TextDim}">
+                                <Ellipse.Effect>
+                                    <DropShadowEffect BlurRadius="16" ShadowDepth="0" Color="#FF8494A0" />
+                                </Ellipse.Effect>
+                            </Ellipse>
+                            <TextBlock x:Name="StateWord"
+                                       Margin="11,0,0,0"
+                                       VerticalAlignment="Center"
+                                       FontFamily="{StaticResource F.Mono}"
+                                       FontSize="14"
+                                       Foreground="{StaticResource B.TextDim}"
+                                       Text="NOT INSTALLED" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!--  path  -->
+                    <Border Grid.Row="1"
+                            Padding="18"
+                            Background="{StaticResource B.Panel}"
+                            BorderBrush="{StaticResource B.Line}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                        <StackPanel>
+                            <TextBlock FontFamily="{StaticResource F.Mono}"
+                                       FontSize="12"
+                                       Foreground="{StaticResource B.TextDim}"
+                                       Text="INSTALL LOCATION" />
+                            <TextBox x:Name="PathBox"
+                                     Margin="0,10,0,0"
+                                     IsReadOnly="True"
+                                     Style="{StaticResource Field}" />
+                        </StackPanel>
+                    </Border>
+
+                    <CheckBox x:Name="LaunchCheck"
+                              Grid.Row="2"
+                              Margin="2,16,0,0"
+                              Content="Launch Cymple Bridge when finished"
+                              IsChecked="True"
+                              Style="{StaticResource Check}" />
+
+                    <!--  progress  -->
+                    <StackPanel x:Name="BusyPanel" Grid.Row="3" Margin="0,18,0,0" Visibility="Collapsed">
+                        <ProgressBar x:Name="Progress"
+                                     Height="10"
+                                     Maximum="100"
+                                     Style="{StaticResource Meter}"
+                                     Value="0" />
+                        <TextBlock x:Name="StatusText"
+                                   Margin="0,10,0,0"
+                                   FontFamily="{StaticResource F.Mono}"
+                                   FontSize="12"
+                                   Foreground="{StaticResource B.TextFaint}"
+                                   Text="Working" />
+                    </StackPanel>
+
+                    <!--  actions  -->
+                    <Grid Grid.Row="5" Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="InstallButton"
+                                Grid.Column="0"
+                                MinWidth="180"
+                                Click="OnInstall"
+                                Content="INSTALL"
+                                HorizontalAlignment="Left"
+                                Style="{StaticResource Primary}" />
+                        <Button x:Name="UninstallButton"
+                                Grid.Column="1"
+                                Margin="0,0,10,0"
+                                Click="OnUninstall"
+                                Content="UNINSTALL"
+                                Padding="18,10"
+                                Style="{StaticResource Ghost}"
+                                Visibility="Collapsed" />
+                        <Button Grid.Column="2"
+                                Click="OnClose"
+                                Content="CLOSE"
+                                Padding="18,10"
+                                Style="{StaticResource Ghost}" />
+                    </Grid>
+                </Grid>
+            </DockPanel>
+
+            <Rectangle Fill="{StaticResource ScanBrush}" IsHitTestVisible="False" />
+        </Grid>
+    </Border>
+</Window>
